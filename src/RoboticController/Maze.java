@@ -43,7 +43,21 @@ public class Maze {
 		log.info("Start Position not set , Default Value = " + this.startPosition);
 		return startPosition;
 	}
-
+	
+	public int getMaxScore() {
+		int score = 0;
+		// Loop over array to get start position of Maze value = 2
+		for (int i = 0; i < this.maze.length; i++) {
+			for (int j = 0; j < this.maze[i].length; j++) {
+				// 2 is the type for start position
+				if (this.maze[i][j] == 3) {
+					score++;
+				}
+			}
+		}
+		
+		return score;
+	}
 	public int getPositionValue(int x, int y) {
 		if (x < 0 || y < 0 || x >= this.maze.length || y >= this.maze[0].length) {
 			return 1;

@@ -51,10 +51,13 @@ public class GeneticAlgorithm {
 	}
 
 
-	public boolean isTerminationConditionMet(int generationsCount, int maxGenerations) {
-		return (generationsCount > maxGenerations);
+	public boolean isTerminationConditionMet(int generationsCount, int maxGenerations, double maxScore, double currScore) {
+		return ((generationsCount > maxGenerations) && (maxScore == currScore));
 	}
-
+	
+	public boolean isTerminationConditionMet(int generationsCount, int maxGenerations) {
+		return (generationsCount > maxGenerations) ;
+	}
 
 	public Individual selectParent(Population population) {
 		// Create tournament

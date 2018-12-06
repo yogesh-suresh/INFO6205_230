@@ -216,7 +216,14 @@ public class TestRobot {
 	public int[] getPosition() {
 		return new int[] { this.xPos, this.yPos };
 	}
-
+	
+	public int getCurrentXPos() {
+		return  this.xPos;
+	}
+	
+	public int getCurrentYPos() {
+		return  this.yPos;
+	}
 	private Direction getHeading() {
 		return this.heading;
 	}
@@ -224,4 +231,14 @@ public class TestRobot {
 	public ArrayList<int[]> getRoute() {
 		return this.route;
 	}
+	
+	 public String printRoute(){
+	        String route = "";
+	        
+	        for (Object routeStep : this.route) {
+	            int step[] = (int[]) routeStep;
+	            route += "{" + step[0] + "," + step[1] + "}";
+	        }
+	        return route;
+	    }
 }

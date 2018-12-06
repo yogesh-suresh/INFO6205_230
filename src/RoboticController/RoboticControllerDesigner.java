@@ -34,13 +34,14 @@ public class RoboticControllerDesigner {
 
 		// Keep track of current generation
 		int generation = 1;
+		double mazeMaxScore = maze.getMaxScore();
+		double currScore = population.getFittest(0).getFitness();
 
-	
-		while (ga.isTerminationConditionMet(generation,MAXGENERATION) == false) {
+		double starttime = System.currentTimeMillis();
+		while (ga.isTerminationConditionMet(generation,MAXGENERATION,mazeMaxScore,currScore) == false) {
 			
 			// Print fittest individual from population
 			System.out.println("New solution: " +"(" +  population.getFittest(0).getFitness() +"):" + population.getFittest(0).toString());
-//			System.out.println("Fitness Value    : " +);
 			// Apply crossover
 			population = ga.crossoverPopulation(population);
 			// Apply mutation
@@ -48,11 +49,15 @@ public class RoboticControllerDesigner {
 			// Evaluate population
 			ga.evalPopulation(population, maze);
 			// Increment the current generation
+			currScore = population.getFittest(0).getFitness();
 			generation++;
+			
 		}
-
-		System.out.println("Found solution in " + generation + " generations");
+		
+		double endttime = System.currentTimeMillis();
+		System.out.println("Overall Time Taken(Sec) is " + (endttime-starttime)/1000 + "s");
+		System.out.println("Found solution in " + generation + " generations with fitness Score = " + currScore);
 		System.out.println("Final solution: " + population.getFittest(0).toString());
-
+		log.info("Final solution: " + population.getFittest(0).toString());
 	}
 }
