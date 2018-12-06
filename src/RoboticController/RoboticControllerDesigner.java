@@ -1,10 +1,10 @@
 package RoboticController;
 
 import java.util.logging.Logger;
+import static RoboticController.ParameterConstant.*;
 
 public class RoboticControllerDesigner {
-	public static int maxGenerations = 500;
-	private final static int chromosomelength = 128; 
+	private final static int chromosomelength = 128;
 	private static final Logger log = Logger.getLogger(Maze.class.getName());
 	
 	public static void main(String[] args) {
@@ -22,8 +22,8 @@ public class RoboticControllerDesigner {
 				{ 1, 3, 3, 3, 3, 1, 1, 1, 2 }
 			});
 		// Create GA object
-		//Parameter List ( population size, mutation rate , crossover rate, eliteCount ) 
-		GeneticAlgorithm ga = new GeneticAlgorithm(200, 0.01, 0.9, 2, 10);
+		//Parameter List ( population size, mutation rate , crossover rate, eliteCount, tornament size ) 
+		GeneticAlgorithm ga = new GeneticAlgorithm(POPULATIONSIZE, MUTATIONSIZE,CROSSOVERRATE, ELITSMCOUNT, TOURNAMENTSIZE);
 		
 		// Initialize population
 		Population population = ga.initPopulation(chromosomelength);
@@ -36,21 +36,17 @@ public class RoboticControllerDesigner {
 		int generation = 1;
 
 	
-		while (ga.isTerminationConditionMet(generation,maxGenerations) == false) {
+		while (ga.isTerminationConditionMet(generation,MAXGENERATION) == false) {
 			
 			// Print fittest individual from population
 			System.out.println("New solution: " +"(" +  population.getFittest(0).getFitness() +"):" + population.getFittest(0).toString());
 //			System.out.println("Fitness Value    : " +);
-
 			// Apply crossover
 			population = ga.crossoverPopulation(population);
-
 			// Apply mutation
 			population = ga.mutatePopulation(population);
-
 			// Evaluate population
 			ga.evalPopulation(population, maze);
-
 			// Increment the current generation
 			generation++;
 		}
